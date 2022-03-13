@@ -1,0 +1,19 @@
+name: Continuous Integration
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure
+      run: cmake --preset=ci-ubuntu
+
+    - name: Build
+      run: cmake --build build -j 2
+
+    - name: Test
+      run: ctest --test-dir build -j 2
